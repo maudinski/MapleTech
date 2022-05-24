@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+
+    <body>
+        
+        <script>
+            function washing_func() {
+                toggle_div("WASHING_DIV")
+            }
+
+            function cwk_func() {
+                var response = httpGet("http://localhost:8080/cwk")
+                toggle_div("CWK_DIV")
+                document.getElementById("CWK_RESULTS_PRE").textContent = JSON.stringify(JSON.parse(response), undefined, 2);
+            }
+
+            function cwk_new_toggle_on() {
+                document.getElementById("CWK_SUBMIT_FORM_DIV").style.display = "block"
+            }
+
+            function cwk_new_toggle_off() {
+                document.getElementById("CWK_SUBMIT_FORM_DIV").style.display = "none"
+            }
+
+
+            function leech_func() {
+                var response = httpGet("http://localhost:8080/leech")
+                toggle_div("LEECH_DIV")
+                document.getElementById("LEECH_RESULTS_PRE").innerHTML = response;
+            }
+
+            // TODO this is a synchronous request, should use asynchornous for user experience
+            // https://stackoverflow.com/questions/247483/http-get-request-in-javascript
+            function httpGet(theUrl) {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+                xmlHttp.send( null );
+                return xmlHttp.responseText;
+            }
+
+            function toggle_div(div_name) {
+                var d1 = document.getElementById("CWK_DIV")
+                if (div_name.localeCompare("CWK_DIV") == 0) {
+                    d1.style.display = "block"
+                } else {
+                    d1.style.display = "none"
+                }
+
+                var d2 = document.getElementById("LEECH_DIV")
+                if (div_name.localeCompare("LEECH_DIV") == 0) {
+                    d2.style.display = "block"
+                } else {
+                    d2.style.display = "none"
+                }
+
+                var d3 = document.getElementById("WASHING_DIV")
+                if (div_name.localeCompare("WASHING_DIV") == 0) {
+                    d3.style.display = "block"
+                } else {
+                    d3.style.display = "none"
+                }
+
+            }
+
+            function cwk_submit_form() {
+                var form = document.getElementById("CWK_SUBMIT_FORM")
+
+                var XHR = new XMLHttpRequest();
+
+
+                // Bind the FormData object and the form element
+                const FD = new FormData( form );
+
+                // Define what happens on successful data submission
+                XHR.addEventListener( "load", function(event) {
+                    //alert( event.target.responseText );
+                    document.getElementById("CWK_RESULTS_PRE").textContent = JSON.stringify(JSON.parse(event.target.responseText), undefined, 2);
+                } );
+
+                // Define what happens in case of error
+                XHR.addEventListener( "error", function( event ) {
+                    alert( 'Oops! Something went wrong.' );
+                } );
+
+                // Set up our request
+                
+                XHR.open( "POST", "http://localhost:8080/cwk" );
+                //XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+               // XHR.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+                // The data sent is what the user provided in the form
+                XHR.send( new URLSearchParams(FD) );
+
+                cwk_new_toggle_off()
+            }
+
+
+        </script>
+        <!-- top bar div -->
+        <div>
+            <button onclick="cwk_func()" id="CWK">CWK</button>
+		    <button onclick="leech_func()" id="LeechCalculator">Leech Calculator</button>
+            <button onclick="washing_func()">washing calc</button>
+        </div>
+
+        <!-- cwk div -->
+        <div id="CWK_DIV" style="display:none">
+            <button onclick="cwk_new_toggle_on()" id="CWK_NEW">New</button>
+
+            <div id="CWK_SUBMIT_FORM_DIV" style="display:none">
+                <form id="CWK_SUBMIT_FORM">
+                    <label>Group name</label>
+                    <input type="text" id="groupname" name="groupname"></br>
+                    <input type="text" id="ign0" name="ign0">
+                    <input type="text" id="ign1" name="ign1">
+                    <input type="text" id="ign2" name="ign2">
+                    <input type="text" id="ign3" name="ign3">
+                    <input type="text" id="ign4" name="ign4">
+                    <input type="button" onclick="cwk_submit_form()" value="Submit">
+                </form>
+            </div>
+
+            <pre id="CWK_RESULTS_PRE">nothing</pre>
+
+        </div>
+        <!--Leech div-->
+        <div id="LEECH_DIV" style="display:none">
+            <pre id="LEECH_RESULTS_PRE">nothing</pre>
+        </div>
+
+        <!--Washing div-->
+        <div id="WASHING_DIV" style="display:none">
+            <p>washing</p>
+        </div>
+    </body>
+</html>
