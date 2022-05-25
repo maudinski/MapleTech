@@ -1,4 +1,3 @@
-import "./IndividualInstanceSelectorComponent.css"
 
 export default function IndividualInstanceSelectorComponent({count, players, name, toggleFunc}) {
 
