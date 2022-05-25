@@ -132,8 +132,8 @@ func purge_thread(groupname string) {
 
 	index := 0
 
-	bonusInstancesMutex.Lock()
 	log.Println("del")
+	bonusInstancesMutex.Lock()
 
 	if len(bonusInstances) == 1 {
 		bonusInstances = []CwkBonusInstance{}
