@@ -18,6 +18,7 @@ export default class App extends Component {
 	WASHING = "washing"
 	HOME = "home"
 	ROLL = "roll"
+	
 
 	constructor(props) {
 		super(props);
