@@ -1,4 +1,4 @@
-import {Component} from "react"
+import { BrowserRouter, Route, Link, Routes} from "react-router-dom";
 import CwkComponent from "./pages/cwk/CwkComponent"
 import LeechComponent from "./pages/leech/LeechComponent"
 import WashingComponent from "./pages/washing/WashingComponent"
@@ -11,69 +11,45 @@ import RollingComponent from "./pages/rolling/RollingComponent"
 import {AppBar, Toolbar, IconButton, Typography, Stack, Button} from "@mui/material"
 import CatchingPokemonIcon from "@mui/icons-material/CatchingPokemon"
 
-export default class App extends Component {
+export default function App() {
 
-	CWK = "cwk"
-	LEECH = "leech"
-	WASHING = "washing"
-	HOME = "home"
-	ROLL = "roll"
-	
-
-	constructor(props) {
-		super(props);
-		this.state = {
-			page: this.HOME
-		}
-	}
-
-	setPage(p) {
-		this.setState({
-			page: p
-		})
-	}
-
-	renderPage() {
-		switch(this.state.page) {
-			case this.CWK:
-				return (<CwkComponent></CwkComponent>)
-			case this.LEECH:
-				return (<LeechComponent></LeechComponent>)
-			case this.ROLL:
-				return (<RollingComponent></RollingComponent>)
-			case this.HOME:
-				return (<HomeComponent></HomeComponent>)
-			case this.WASHING:
-				return (<WashingComponent></WashingComponent>)
-		}
-	}
-
-	render() {
-		return (
-			<>
+	return (
+		<>
+		<BrowserRouter forceRefresh={true}>
 
 			<AppBar position="static" style={{ padding: 0, background: '#2E3B55' }}>
 				<Toolbar >
-					<IconButton onClick={() => this.setPage(this.HOME)} size="large" edge="start" color="inherit" aria-label="logo" >
-						<CatchingPokemonIcon/>
-					</IconButton>
-					{/* the sx={flexgrow} thing is to make it push all the buttons to the right */}
-					<Typography variant="h6" component="div" sx={{ flexGrow : 1}}> 
-						MapleTech
-					</Typography>
-					<Stack direction="row" spacing={2}>
 
-							<Button onClick={() => this.setPage(this.CWK)} color="inherit">Cwk</Button>
-							<Button onClick={() => this.setPage(this.WASHING)} color="inherit">Washing</Button>
-							<Button onClick={() => this.setPage(this.LEECH)} color="inherit">Leech</Button>
-							<Button onClick={() => this.setPage(this.ROLL)} color="inherit">Roll</Button>
+						<IconButton component={Link} to="/" size="large" edge="start" color="inherit" aria-label="logo" >
+							<CatchingPokemonIcon/>
+						</IconButton>
+						{/* the sx={flexgrow} thing is to make it push all the buttons to the right */}
+						<Typography variant="h6" component="div" sx={{ flexGrow : 1}}> 
+							MapleTech
+						</Typography>
+						<Stack direction="row" spacing={2}>
 
-					</Stack>
+								<Button component={Link} to="/cwk" color="inherit">Cwk</Button>
+								<Button component={Link} to="/washing" color="inherit">Washing</Button>
+								<Button component={Link} to="/leech" color="inherit">Leech</Button>
+								<Button component={Link} to="roll" color="inherit">Roll</Button>
+
+						</Stack>
+						
+					
 				</Toolbar>
 			</AppBar>
-			{this.renderPage()}
-			</>
+			<Routes>
+				<Route exact path="/" element={<HomeComponent/>} />
+				<Route exact path="/cwk" element={<CwkComponent/>} />
+				<Route exact path="/leech" element={<LeechComponent/>} />
+				<Route exact path="/washing" element={<WashingComponent/>} />
+				<Route exact path="/roll" element={<RollingComponent/>} />
+				<Route exact path="*" element={<FourOhFourComponent/>} />
+			</Routes>
 
-		)
-	}
+		</BrowserRouter>
+		</>
+
+	)
 }
