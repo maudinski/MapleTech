@@ -3,8 +3,7 @@ import SelectorComponent from "./Selector/SelectorComponent"
 import DisplayComponent from "./Display/DisplayComponent"
 import {INSTANCE, NEW, DIAGRAMS, NOTHING} from "./Display/DisplayComponent"
 
-
-
+import ToggledList from "./Selector/ToggledList"
 
 export default function CwkComponent() {
 	
@@ -85,6 +84,7 @@ export default function CwkComponent() {
 			instancePlayers={activeInstancePlayers}
 			instanceName={activeInstanceName}>	
 		</DisplayComponent>
+		<ToggledList></ToggledList>
 		</>
 	)
 }
