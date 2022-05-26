@@ -1,9 +1,8 @@
 import {useEffect, useState} from "react"
-import SelectorComponent from "./Selector/SelectorComponent"
 import DisplayComponent from "./Display/DisplayComponent"
 import {INSTANCE, NEW, DIAGRAMS, NOTHING} from "./Display/DisplayComponent"
 
-import ToggledList from "./Selector/ToggledList"
+import CwkToggleList from "./Selector/CwkToggleList"
 
 export default function CwkComponent() {
 	
@@ -71,12 +70,12 @@ export default function CwkComponent() {
 
 	return (
 		<>
-		<SelectorComponent 
+		<CwkToggleList
 			instances={instances} 
 			toggleInstanceFunc={toggleActiveInstance}
 			toggleNewFunc={toggleNew}
 			toggleDiagramsFunc={toggleDiagrams}>	
-		</SelectorComponent>
+		</CwkToggleList>
 
 		<DisplayComponent 
 			state={displayState}
@@ -84,7 +83,8 @@ export default function CwkComponent() {
 			instancePlayers={activeInstancePlayers}
 			instanceName={activeInstanceName}>	
 		</DisplayComponent>
-		<ToggledList></ToggledList>
+
+
 		</>
 	)
 }

@@ -19,7 +19,7 @@ export default function App() {
 		<BrowserRouter forceRefresh={true}>
 			
 			{/* gotta render a second toolbar if using position absolute"*/}
-			<AppBar className="appbar" position="absolute" style={{ background: '#2E3B55' }}>
+			<AppBar className="appbar" position="absolute">{/*style={{ background: '#2E3B55' }}>*/} 
 				<Toolbar >
 					<IconButton component={Link} to="/" edge="start" color="inherit" aria-label="logo" >
 						<img className="logo" alt="edit" src={maplelogo} />
