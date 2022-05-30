@@ -29,7 +29,7 @@ export default function CwkToggleList({instances, toggleInstanceFunc, toggleNewF
 	
 	return (
 
-		<Box sx={{ width: '100%', maxWidth: 360, bgcolor: '#151515' }}>
+		<Box sx={{ width: '100%', maxWidth: 360, bgcolor: '#121212' }}>
 			
 			<WrappedListItemButton
 				toggledOn={selectedDisplay === "new"}
@@ -51,8 +51,6 @@ export default function CwkToggleList({instances, toggleInstanceFunc, toggleNewF
 			>
 			</WrappedListItemButton>
 
-			<Divider/>		
-			<Divider/>
 			<List component="nav" aria-label="main mailbox folders">
 				
 				{instances.map(instance => {

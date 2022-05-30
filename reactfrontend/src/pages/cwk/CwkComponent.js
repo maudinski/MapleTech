@@ -3,6 +3,7 @@ import DisplayComponent from "./Display/DisplayComponent"
 import {INSTANCE, NEW, DIAGRAMS, NOTHING} from "./Display/DisplayComponent"
 
 import CwkToggleList from "./Selector/CwkToggleList"
+import Grid from "@mui/material/Grid"
 
 export default function CwkComponent() {
 	
@@ -70,6 +71,8 @@ export default function CwkComponent() {
 
 	return (
 		<>
+		<Grid item xs={1} />
+        <Grid item xs={10} style={{ display: "flex", gap: "1rem" }}>
 		<CwkToggleList
 			instances={instances} 
 			toggleInstanceFunc={toggleActiveInstance}
@@ -83,8 +86,7 @@ export default function CwkComponent() {
 			instancePlayers={activeInstancePlayers}
 			instanceName={activeInstanceName}>	
 		</DisplayComponent>
-
-
+		</Grid>
 		</>
 	)
 }
